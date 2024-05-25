@@ -8,22 +8,25 @@
                 <div class="slds-grid slds-wrap slds-gutters">
                     <div class="slds-col slds-size_1-of-1">
                         <div class="slds-form slds-form_stacked">
+                            <!-- Type -->
                             <div class="slds-form-element slds-size_1-of-1">
                                 <label class="slds-form-element__label" for="type">Type</label>
                                 <div class="slds-form-element__control">
                                     <c-type-user ontypechange={handleTypeChange}></c-type-user>
                                 </div>
                             </div>
+                            <!-- Distributor -->
                             <div class="slds-form-element slds-size_1-of-1">
                                 <label class="slds-form-element__label" for="distributor">Distributor</label>
                                 <div class="slds-form-element__control">
                                     <c-distributeur onlookupupdate={lookupUpdatehandler}></c-distributeur>
                                 </div>
                             </div>
+                            <!-- Agence -->
                             <div class="slds-form-element slds-size_1-of-1">
                                 <label class="slds-form-element__label" for="agence">Agence</label>
                                 <div class="slds-form-element__control">
-                                    <c-agence selected-type={selectedType} distributor-id={distributorId} onlookupupdate={lookupUpdatehandler}></c-agence>
+                                    <c-agence selected-type={selectedType} distributor-id={distributorId} onlookupupdate={lookupUpdatehandlerAgence}></c-agence>
                                 </div>
                             </div>
                         </div>
@@ -31,21 +34,27 @@
                     <div class="slds-col slds-size_1-of-1">
                         <div class="slds-box slds-p-around_medium slds-theme_shade">
                             <c-information-contact-user 
-                            selected-type={selectedType}
-                            onnomupdate={handleNomUpdate}
-                            onprenomupdate={handlePrenomUpdate}
-                            onciviliteupdate={handleCiviliteUpdate}
-                            onemailupdate={handleEmailUpdate}
-                            onusernameupdate={handleUsernameUpdate}
-                            onproduitupdate={handleProduitUpdate}>
-                        </c-information-contact-user>
+                                selected-type={selectedType}
+                                onnomupdate={handleNomUpdate}
+                                onprenomupdate={handlePrenomUpdate}
+                                onciviliteupdate={handleCiviliteUpdate}
+                                onemailupdate={handleEmailUpdate}
+                                onusernameupdate={handleUsernameUpdate}
+                                onproduitupdate={handleProduitUpdate}>
+                            </c-information-contact-user>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- Affichage des messages d'erreur -->
+            <template if:true={showError}>
+                <div class="slds-box slds-theme_error slds-m-around_medium">
+                    <p>Veuillez remplir tous les champs obligatoires.</p>
+                </div>
+            </template>
             <footer class="slds-m-top_medium slds-text-align_center">
                 <lightning-button label="Cancel" onclick={handleCancel} variant="neutral"></lightning-button>
-                <lightning-button label="Save" onclick={handleSave} variant="brand"></lightning-button>
+                <lightning-button label="Save" onclick={handleSave} selected-type={selectedType} variant="brand"></lightning-button>
             </footer>
         <!-- </template> -->
     </div>

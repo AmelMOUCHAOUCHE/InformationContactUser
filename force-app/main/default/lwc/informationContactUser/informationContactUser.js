@@ -9,7 +9,7 @@ export default class InformationContactUser extends LightningElement {
     @track email = '';
     @track username = '';
     @track selectedProduits = [];
-    @track afficherProduit = false;
+    @track deuxiemeProduit = '';
 
     // Définir les options pour la civilité
     get civiliteOptions() {
@@ -56,25 +56,27 @@ export default class InformationContactUser extends LightningElement {
     handleProduitsChange(event) {
         this.selectedProduits = event.detail.value;
         this.dispatchUpdateEvent('selectedProduits', this.selectedProduits);
+
+        // Vérifier si les deux produits sont sélectionnés
+        if (this.selectedProduits.length === 2) {
+            this.deuxiemeProduit = 'Les deux produits sont sélectionnés';
+        } else {
+            this.deuxiemeProduit = '';
+        }
     }
 
-   dispatchUpdateEvent(fieldName, value) {
+    dispatchUpdateEvent(fieldName, value) {
         const updateEvent = new CustomEvent(`${fieldName}update`, {
             detail: value
         });
         this.dispatchEvent(updateEvent);
     }
 
-     get showProduitField() {
-        return this.selectedType === 'Animateur' || this.selectedType;
+    get showProduitField() {
+        return this.selectedType === 'Animateur' || this.selectedType ==='Livreur'
+    }
+
+    get showDeuxiemeProduitField() {
+        return this.selectedProduits.length > 0;
     }
 }
- 
-
-
-
-
-
-
-
-
